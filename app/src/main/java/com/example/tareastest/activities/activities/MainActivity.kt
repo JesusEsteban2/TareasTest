@@ -11,6 +11,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         var db= DatabaseHelper(this)
-        db.writableDatabase.insert()
+        var v: List<Any> = listOf("Ir a clase",false,"Trabajo")
+        db.insertTask(db.writableDatabase,v)
+        var v2: List<Any> = listOf("Hacer la compra",false,"Personal")
+        db.insertTask(db.writableDatabase,v2)
     }
 }
