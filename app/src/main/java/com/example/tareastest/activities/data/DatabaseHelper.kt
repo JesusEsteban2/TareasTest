@@ -2,6 +2,7 @@ package com.example.tareastest.activities.data
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
@@ -11,7 +12,7 @@ class DatabaseHelper (context: Context)
     : SQLiteOpenHelper(context,DATABASE_NAME,null,DATABASE_VERSION){
 
     override fun onCreate(db: SQLiteDatabase?) {
-        db?.execSQL(SQL_CREATE_ENTRIES)
+        db?.execSQL(SQL_CREATE_ENTRIES_TAREAS)
 
     }
 
@@ -21,37 +22,58 @@ class DatabaseHelper (context: Context)
     }
 
     fun destroyDatabase(db: SQLiteDatabase?){
-        db?.execSQL(SQL_DELETE_TABLE)
+        db?.execSQL(SQL_DELETE_TABLE_TAREAS)
     }
 
-    fun insertTask(db:SQLiteDatabase,v: List<Any>){
+    fun insertTareas(datab:SQLiteOpenHelper,t:Tarea):Boolean{
 
-        // Create a new map of values, where column names are the keys
+        // Create a new map of values, where column names are the key
         var values=ContentValues()
-        var d=0
-        for (c in SQL_TAREAS_COLUMS){
-            when {
-                v[d] is String -> values.put(c,v[d] as String)
-                v[d] is Int -> values.put(c,v[d] as Int)
-                v[d] is Boolean -> values.put(c,v[d] as Boolean)
-                else -> values.put(c,v[d].toString())
-            }
 
-            d++
-        }
+        values.put(SQL_TAREAS_COLUMS[0],t.task)
+        values.put(SQL_TAREAS_COLUMS[1],t.doit)
+        values.put(SQL_TAREAS_COLUMS[2],t.cat)
 
         // Insert the new row, returning the primary key value of the new row
+        var db=datab.writableDatabase
         val newRowId = db.insert("Tareas", null, values)
-        Log.i("DB","Insertado registro id: $newRowId")
+        db.close()
+        return (newRowId>0)
     }
 
+
+
+    fun deleteTask(db:SQLiteDatabase,k:Int){
+
+        // Delete row by id
+        val rowDel = db.delete("Tareas", "ID=$k",null)
+        Log.i("DB","Eliminado $rowDel registro")
+    }
+
+    fun searchTask(db:SQLiteDatabase,q:String):List<Tarea>{
+
+        // Search by id
+        val av=arrayOf<String>(q)
+
+        val cursor:Cursor = db.query("Tareas",null,"ID LIKE ?",av,null,null,null)
+
+        // Log.i("DB","Obtenidos ${cursor.count} registros")
+        var lt:MutableList<Tarea> = mutableListOf<Tarea>()
+
+        while (cursor.moveToNext()) {
+            var t=Tarea(cursor.getInt(0),cursor.getString(1),
+                cursor.getInt(2)==1,cursor.getString(3))
+            lt.add(t)
+        }
+        return lt
+    }
 
     companion object {
         const val DATABASE_NAME="tareastest.db"
         const val DATABASE_VERSION=1
-        const val SQL_DELETE_TABLE="DROP TABLE IF EXISTS Tareas"
-        const val SQL_CREATE_ENTRIES ="CREATE TABLE Tareas (" +
-                    "ID INTEGER PRIMARY KEY AUTOINCREMENT," +
+        const val SQL_DELETE_TABLE_TAREAS="DROP TABLE IF EXISTS Tareas"
+        const val SQL_CREATE_ENTRIES_TAREAS ="CREATE TABLE Tareas (" +
+                    "Id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "Task TEXT," +
                     "Doit BOOLEAN,"+
                     "Cat TEXT)"
