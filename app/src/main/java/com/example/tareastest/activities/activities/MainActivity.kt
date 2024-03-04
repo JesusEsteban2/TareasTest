@@ -21,10 +21,9 @@ class MainActivity : AppCompatActivity() {
 
         var dataset:List<Tarea> = DaoTask(this).queryAll()
 
-
             var db= DatabaseHelper(this)
 
-        binding.reciclerV.adapter=TareasAdapter(dataset)
+        binding.reciclerV.adapter=TareasAdapter(dataset, onClickListener(pos))
 
 
 
