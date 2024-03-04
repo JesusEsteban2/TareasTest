@@ -6,4 +6,7 @@
     </style>
 
     <style name="Theme.TareasTest" parent="Base.Theme.TareasTest" />
+    <style name="Chips">
+
+    </style>
 </resources>

@@ -3,7 +3,9 @@ package com.example.tareastest.activities.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.tareastest.R
+import com.example.tareastest.activities.adapter.TareasAdapter
 import com.example.tareastest.activities.data.DatabaseHelper
+import com.example.tareastest.activities.data.DaoTask
 import com.example.tareastest.activities.data.Tarea
 import com.example.tareastest.databinding.ActivityMainBinding
 
@@ -17,7 +19,14 @@ class MainActivity : AppCompatActivity() {
         var binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var db= DatabaseHelper(this)
+        var dataset:List<Tarea> = DaoTask(this).queryAll()
+
+
+            var db= DatabaseHelper(this)
+
+        binding.reciclerV.adapter=TareasAdapter(dataset)
+
+
 
 
         //var v: List<Any> = listOf("Ir a clase",false,"Trabajo")
@@ -28,10 +37,10 @@ class MainActivity : AppCompatActivity() {
         //db.insertTask(db.writableDatabase,v2)
         //db.deleteTask(db.writableDatabase,1)
         //db.deleteTask(db.writableDatabase,1)
-        var ls:MutableList<Tarea> = db.searchTask(db.writableDatabase,"%")
-        for (task<Tarea> in ls) {
-            var t =
-            t=t+
-        }
+        // var ls:MutableList<Tarea> = db.searchTask(db.writableDatabase,"%")
+        // for (task<Tarea> in ls) {
+        //    var t =
+        //    t=t+
+        //}
     }
 }
