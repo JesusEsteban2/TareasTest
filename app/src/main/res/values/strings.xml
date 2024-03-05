@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">TareasTest</string>
+
+    <string name="Work">Work</string>
+    <string name="Home">Home</string>
+    <string name="Shopp">Shopping</string>
+    <string name="Travel">Travel</string>
+    <string name="Urgent">Urgent</string>
+
+
 </resources>

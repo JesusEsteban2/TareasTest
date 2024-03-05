@@ -11,8 +11,6 @@ import android.util.Log
 class DatabaseHelper (context: Context)
     : SQLiteOpenHelper(context,DATABASE_NAME,null,DATABASE_VERSION){
 
-    private val databaseManager:DatabaseHelper=DatabaseHelper(context)
-
     override fun onCreate(db: SQLiteDatabase?) {
         db?.execSQL(SQL_CREATE_ENTRIES_TAREAS)
     }
@@ -36,7 +34,7 @@ class DatabaseHelper (context: Context)
         values.put(SQL_TAREAS_COLUMS[2],t.cat)
 
         // Insert the new row, returning the primary key value of the new row
-        val db=databaseManager.writableDatabase
+        val db=this.writableDatabase
         val newRowId = db.insert(TABLE_NAME, null, values)
         db.close()
         return (newRowId>0)
@@ -51,7 +49,7 @@ class DatabaseHelper (context: Context)
     fun deleteTask(i:Int):Boolean{
 
         // Delete row by id
-        val db=databaseManager.writableDatabase
+        val db=this.writableDatabase
         val rowDel = db.delete(TABLE_NAME, "ID=$i",null)
         db.close()
         Log.i("DB","Eliminado $rowDel registro")
@@ -74,7 +72,7 @@ class DatabaseHelper (context: Context)
         //Establecer criterio
         val cri=arrayOf(ta.id.toString())
 
-        val db=databaseManager.writableDatabase
+        val db=this.writableDatabase
         val count = db.update(
             TABLE_NAME,
             values,
@@ -89,7 +87,7 @@ class DatabaseHelper (context: Context)
         // Search by id
         val av=arrayOf<String>(k.toString())
 
-        val db=databaseManager.writableDatabase
+        val db=this.writableDatabase
         val cursor:Cursor = db.query(TABLE_NAME,null,"ID = ?",av,
             null,null,null)
 
@@ -111,7 +109,7 @@ class DatabaseHelper (context: Context)
         // Search by id
         val av=arrayOf<String>(true.toString())
 
-        val db=databaseManager.writableDatabase
+        val db=this.writableDatabase
         val cursor:Cursor = db.query(TABLE_NAME,null,"Doit = ?",av,
             null,null,null)
 
@@ -134,7 +132,7 @@ class DatabaseHelper (context: Context)
         // Search by id
         val av=arrayOf<String>(true.toString())
 
-        val db=databaseManager.writableDatabase
+        val db=this.writableDatabase
         val cursor:Cursor = db.query(TABLE_NAME,null,null,null,
             null,null,null)
 

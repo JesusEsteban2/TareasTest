@@ -2,44 +2,40 @@ package com.example.tareastest.activities.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.tareastest.R
-import com.example.tareastest.activities.adapter.TareasAdapter
-import com.example.tareastest.activities.data.DatabaseHelper
+import com.example.tareastest.activities.adapters.TareasAdapter
 import com.example.tareastest.activities.data.DaoTask
 import com.example.tareastest.activities.data.Tarea
 import com.example.tareastest.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    lateinit var dataSet: List<Tarea>
+    lateinit var adapt:TareasAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        var dataset:List<Tarea> = DaoTask(this).queryAll()
+        dataSet = DaoTask(this).queryAll()
 
-            var db= DatabaseHelper(this)
+        adapt=TareasAdapter(dataSet, { onDelClickListener(it)})
 
-        binding.reciclerV.adapter=TareasAdapter(dataset, onClickListener(pos))
+        binding.reciclerV.adapter = adapt
 
+        binding.reciclerV.layoutManager = GridLayoutManager(this, 1)
 
+    }
 
+    private fun onDelClickListener(pos: Int){
 
-        //var v: List<Any> = listOf("Ir a clase",false,"Trabajo")
-        //db.insertTask(db.writableDatabase,v)
-        //var v2: List<Any> = listOf("Hacer la compra",false,"Personal")
-        //db.insertTask(db.writableDatabase,v2)
-        //var v3: List<Any> = listOf("Estudiar en casa",false,"Trabajo")
-        //db.insertTask(db.writableDatabase,v2)
-        //db.deleteTask(db.writableDatabase,1)
-        //db.deleteTask(db.writableDatabase,1)
-        // var ls:MutableList<Tarea> = db.searchTask(db.writableDatabase,"%")
-        // for (task<Tarea> in ls) {
-        //    var t =
-        //    t=t+
-        //}
+        DaoTask(this).delete(dataSet[pos].id)
+        dataSet = DaoTask(this).queryAll()
+        adapt.updateItems(dataSet)
+
     }
 }
