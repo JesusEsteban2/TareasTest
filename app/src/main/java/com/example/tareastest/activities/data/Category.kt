@@ -6,7 +6,7 @@ data class Category(var categ:Int=0,var image:Int=0) {
 
     fun iniciate ():List<Category>{
 
-        lateinit var lisCat:MutableList<Category>
+        var lisCat:MutableList<Category> = mutableListOf<Category>()
 
         val work=Category(R.string.Work, R.drawable.work_36)
         lisCat.add(work)

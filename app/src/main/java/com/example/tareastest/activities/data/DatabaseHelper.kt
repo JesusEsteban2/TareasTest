@@ -96,7 +96,7 @@ class DatabaseHelper (context: Context)
 
         if (cursor.moveToNext()) {
             t=Tarea(cursor.getInt(0),cursor.getString(1),
-                cursor.getInt(2)==1,cursor.getString(3))
+                cursor.getInt(2)==1,cursor.getInt(3))
         }
         cursor.close()
         db.close()
@@ -118,7 +118,7 @@ class DatabaseHelper (context: Context)
 
         while (cursor.moveToNext()) {
             val t=Tarea(cursor.getInt(0),cursor.getString(1),
-                cursor.getInt(2)==1,cursor.getString(3))
+                cursor.getInt(2)==1,cursor.getInt(3))
             lt.add(t)
         }
         cursor.close()
@@ -129,9 +129,6 @@ class DatabaseHelper (context: Context)
 
     fun searchAll():List<Tarea>{
 
-        // Search by id
-        val av=arrayOf<String>(true.toString())
-
         val db=this.writableDatabase
         val cursor:Cursor = db.query(TABLE_NAME,null,null,null,
             null,null,null)
@@ -141,7 +138,7 @@ class DatabaseHelper (context: Context)
 
         while (cursor.moveToNext()) {
             val t=Tarea(cursor.getInt(0),cursor.getString(1),
-                cursor.getInt(2)==1,cursor.getString(3))
+                cursor.getInt(2)==1,cursor.getInt(3))
             lt.add(t)
         }
         cursor.close()
@@ -151,14 +148,14 @@ class DatabaseHelper (context: Context)
     }
     companion object {
         const val DATABASE_NAME="tareastest.db"
-        const val DATABASE_VERSION=1
+        const val DATABASE_VERSION=2
         const val TABLE_NAME="Tareas"
         const val SQL_DELETE_TABLE_TAREAS="DROP TABLE IF EXISTS Tareas"
         const val SQL_CREATE_ENTRIES_TAREAS ="CREATE TABLE Tareas (" +
                     "Id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "Task TEXT," +
                     "Doit BOOLEAN,"+
-                    "Cat TEXT)"
+                    "Cat INTEGER)"
         val SQL_TAREAS_COLUMS:List<String> = listOf("Task","Doit","Cat")
     }
 }

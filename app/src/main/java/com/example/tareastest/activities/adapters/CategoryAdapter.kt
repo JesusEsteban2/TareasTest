@@ -1,16 +1,18 @@
 package com.example.tareastest.activities.adapters
 
-import com.example.tareastest.R
 import android.content.Context
-import android.graphics.Bitmap
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
+import android.widget.ListAdapter
+import android.widget.SimpleAdapter
 import android.widget.TextView
-
+import android.widget.Toast
+import com.example.tareastest.R
 import com.example.tareastest.activities.data.Category
+import com.google.android.material.snackbar.Snackbar
 
 
 class CategoryAdapter (private val context: Context, val lisCat: List<Category>):BaseAdapter() {
@@ -24,22 +26,24 @@ class CategoryAdapter (private val context: Context, val lisCat: List<Category>)
     }
 
     override fun getItemId(position: Int): Long {
-        return position as Long
+        val t: Toast = Toast.makeText(this.context, "Has presionado la categoría $position", Toast.LENGTH_LONG)
+        t.show()
+        return position.toLong()
     }
 
-    override fun getView(position: Int, view: View, viewGroup: ViewGroup): View {
-            var view = view
-            if (view == null) {
-                val inflater = context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-                view = inflater.inflate(R.layout.category_layout, viewGroup, false)
-            }
-            val imagen = view.findViewById<View>(R.id.catImage) as ImageView
-            val texto = view.findViewById<View>(R.id.cattext) as TextView
-
-            imagen.setImageResource(lisCat[position].image)
-            texto.setText(view.context.getString(lisCat[position].categ).toString())
-            return view
+    override fun getView(position: Int, view: View?, viewGroup: ViewGroup): View {
+        var vie=view
+        if (vie == null) {
+            val inflater = context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            vie = inflater.inflate(R.layout.category_layout, viewGroup, false)
         }
+        val imagen = vie!!.findViewById<View>(R.id.catImage) as ImageView
+        val texto = vie!!.findViewById<View>(R.id.cattext) as TextView
+
+        imagen.setImageResource(lisCat[position].image)
+        texto.setText(vie!!.context.getString(lisCat[position].categ).toString())
+        return vie
+    }
 
 }

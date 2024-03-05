@@ -6,6 +6,8 @@
     <string name="Shopp">Shopping</string>
     <string name="Travel">Travel</string>
     <string name="Urgent">Urgent</string>
+    <string name="Pending">Pending</string>
+    <string name="Done">Done</string>
 
 
 </resources>

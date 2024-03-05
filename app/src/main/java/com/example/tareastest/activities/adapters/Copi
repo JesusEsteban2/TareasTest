@@ -1,0 +1,33 @@
+class CategoryAdapter (private val context: Context, val lisCat: List<Category>):BaseAdapter() {
+
+    override fun getCount(): Int {
+        return lisCat.size
+    }
+
+    override fun getItem(position:Int): Category {
+        val t: Toast = Toast.makeText(this.context, "Has presionado la categoría $position", Toast.LENGTH_LONG)
+        t.show()
+
+    }
+
+    override fun getItemId(position: Int): Long {
+
+        return position as Long
+    }
+
+    override fun getView(position: Int, view: View?, viewGroup: ViewGroup): View {
+            var vie=view
+            if (vie == null) {
+                val inflater = context
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+                    vie = inflater.inflate(R.layout.category_layout, viewGroup, false)
+            }
+            val imagen = vie!!.findViewById<View>(R.id.catImage) as ImageView
+            val texto = vie!!.findViewById<View>(R.id.cattext) as TextView
+
+            imagen.setImageResource(lisCat[position].image)
+            texto.setText(vie!!.context.getString(lisCat[position].categ).toString())
+            return vie
+        }
+
+}

@@ -6,8 +6,8 @@ import android.content.Context
 class Tarea (
     val id:Int,
     val task:String,
-    val doit:Boolean,
-    val cat:String
+    var doit:Boolean,
+    val cat:Int
     ) {
 
 }
