@@ -23,11 +23,19 @@ class MainActivity : AppCompatActivity() {
 
         dataSet = DaoTask(this).queryAll()
 
+        // Definir el adapter para el reciclerview
         adapt=TareasAdapter(dataSet, { onDelClickListener(it)})
-
         binding.reciclerV.adapter = adapt
 
         binding.reciclerV.layoutManager = GridLayoutManager(this, 1)
+
+        //Boton flotante
+        val fab = binding.floatingAddButton
+        fab.setOnClickListener { view ->
+            Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
+                .setAction("Action", null)
+                .show()
+        }
 
     }
 
