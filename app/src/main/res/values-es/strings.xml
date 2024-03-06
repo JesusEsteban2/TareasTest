@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tareas Test</string>
+    <string name="Work">Trabajo</string>
+    <string name="Home">Casa</string>
+    <string name="Shopp">Compras</string>
+    <string name="Travel">Viajes</string>
+    <string name="Urgent">Urgente</string>
+    <string name="Pending">Pendiente</string>
+    <string name="Done">Hecho</string>
+    <string name="Ok">Listo</string>
+</resources>

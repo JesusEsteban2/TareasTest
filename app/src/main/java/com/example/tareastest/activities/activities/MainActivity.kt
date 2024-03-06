@@ -37,9 +37,16 @@ class MainActivity : AppCompatActivity() {
         fab.setOnClickListener { view ->
             val context:Context=this
             val intent=Intent(context, DetailActivity::class.java)
-            intent.putExtra("MODE","-1" )
+            intent.putExtra("MODE",-1 )
             context.startActivity(intent)
         }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        dataSet = DaoTask(this).queryAll()
+        adapt.updateItems(dataSet)
 
     }
 
@@ -50,4 +57,7 @@ class MainActivity : AppCompatActivity() {
         adapt.updateItems(dataSet)
 
     }
+
+
+
 }

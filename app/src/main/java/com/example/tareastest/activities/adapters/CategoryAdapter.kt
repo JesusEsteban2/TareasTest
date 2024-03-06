@@ -12,10 +12,11 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.tareastest.R
 import com.example.tareastest.activities.data.Category
+import com.example.tareastest.activities.data.Tarea
 import com.google.android.material.snackbar.Snackbar
 
 
-class CategoryAdapter (private val context: Context, val lisCat: List<Category>):BaseAdapter() {
+class CategoryAdapter (private val context: Context, val lisCat: List<Category>,var ta:Tarea):BaseAdapter() {
 
     override fun getCount(): Int {
         return lisCat.size
@@ -26,8 +27,9 @@ class CategoryAdapter (private val context: Context, val lisCat: List<Category>)
     }
 
     override fun getItemId(position: Int): Long {
-        val t: Toast = Toast.makeText(this.context, "Has presionado la categoría $position", Toast.LENGTH_LONG)
-        t.show()
+        //val t: Toast = Toast.makeText(this.context, "Has presionado la categoría $position", Toast.LENGTH_LONG)
+        //t.show()
+        //ta.cat=position
         return position.toLong()
     }
 
@@ -42,8 +44,17 @@ class CategoryAdapter (private val context: Context, val lisCat: List<Category>)
         val texto = vie!!.findViewById<View>(R.id.cattext) as TextView
 
         imagen.setImageResource(lisCat[position].image)
+        if (ta.cat==position) {
+            imagen.setBackgroundColor(imagen.context.getColor(R.color.mark))
+        } else {
+            imagen.setBackgroundColor(imagen.context.getColor(R.color.white))
+        }
         texto.setText(vie!!.context.getString(lisCat[position].categ).toString())
         return vie
+    }
+
+    fun updateView (position: Int) {
+
     }
 
 }

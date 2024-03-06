@@ -39,3 +39,7 @@ class Coche(val nombre: String, val idDrawable: Int) {
         }
     }
 }
+
+Core Android
+
+https://developer.android.com/develop?hl=en#core-areas

@@ -10,7 +10,7 @@
         android:id="@+id/taskChip"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:text="Pending"
+        android:text="-"
         app:chipIcon="@drawable/uncheck"
         android:layout_marginStart="5dp"
         app:layout_constraintTop_toTopOf="parent"

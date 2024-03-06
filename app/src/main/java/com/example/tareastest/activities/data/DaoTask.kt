@@ -5,9 +5,9 @@ import android.content.Context
 
 class Tarea (
     val id:Int,
-    val task:String,
+    var task:String,
     var doit:Boolean,
-    val cat:Int
+    var cat:Int
     ) {
 
 }

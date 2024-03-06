@@ -20,6 +20,11 @@ class DatabaseHelper (context: Context)
         onCreate(db)
     }
 
+    override fun onDowngrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
+        destroyDatabase(db)
+        onCreate(db)
+    }
+
     private fun destroyDatabase(db: SQLiteDatabase?){
         db?.execSQL(SQL_DELETE_TABLE_TAREAS)
     }
@@ -64,7 +69,7 @@ class DatabaseHelper (context: Context)
     fun updateTask(ta:Tarea):Boolean {
 
         val values=ContentValues()
-
+        values.put("ID",ta.id)
         values.put(SQL_TAREAS_COLUMS[0],ta.task)
         values.put(SQL_TAREAS_COLUMS[1],ta.doit)
         values.put(SQL_TAREAS_COLUMS[2],ta.cat)
@@ -76,8 +81,9 @@ class DatabaseHelper (context: Context)
         val count = db.update(
             TABLE_NAME,
             values,
-            "Id=",
-            cri)
+            "Id= ?",
+            cri
+        )
         db.close()
 
         return (count>0)
@@ -148,7 +154,7 @@ class DatabaseHelper (context: Context)
     }
     companion object {
         const val DATABASE_NAME="tareastest.db"
-        const val DATABASE_VERSION=2
+        const val DATABASE_VERSION=1
         const val TABLE_NAME="Tareas"
         const val SQL_DELETE_TABLE_TAREAS="DROP TABLE IF EXISTS Tareas"
         const val SQL_CREATE_ENTRIES_TAREAS ="CREATE TABLE Tareas (" +
