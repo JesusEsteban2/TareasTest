@@ -3,13 +3,16 @@ package com.example.tareastest.activities.activities
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.ContentInfo
 import android.view.DragAndDropPermissions
 import android.view.DragEvent
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat.performReceiveContent
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.tareastest.R
 import com.example.tareastest.activities.adapters.TareasAdapter
@@ -38,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         dataSet = DaoTask(this).queryAll()
 
         // Definir el adapter para el reciclerview
-        adapt=TareasAdapter(dataSet, { onDelClickListener(it)})
+        adapt = TareasAdapter(dataSet, { onDelClickListener(it) })
 
         //Muestra la opcion atras en el menú
         this.supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -52,8 +55,29 @@ class MainActivity : AppCompatActivity() {
         fab.setOnClickListener { view ->
             newTask()
         }
-        fab.onDragEvent(event: DragEvent -> {
-            onDragEvent(event: DragEvent)})
+
+        // Boton flotante cambiar de sitio con Longclick
+        fab.setOnLongClickListener { view ->
+
+            var l: Int = fab.left
+            var r: Int = fab.right
+            var t: Int = fab.top
+            var b: Int = fab.bottom
+            var wi: Int = r - l
+            var hi: Int = b - t
+            if (l !=25){
+                Log.i("POS","Pos l= $l")
+                Log.i("POS","Pos r= $r")
+                Log.i("POS","Pos t= $t")
+                Log.i("POS","Pos b= $b")
+                l=25
+            } else {
+                l=900
+            }
+            r = l + wi
+            fab.layout(l, t, r, b)
+           true
+        }
 
     }
 
@@ -105,29 +129,6 @@ class MainActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun onDragEvent(event: DragEvent): Boolean {
-        if (mListenerInfo == null || mListenerInfo.mOnReceiveContentListener == null) {
-            return false
-        }
-        // Accept drag events by default if there's an OnReceiveContentListener set.
-        if (event.action == DragEvent.ACTION_DRAG_STARTED) {
-            return true
-        }
-        if (event.action == DragEvent.ACTION_DROP) {
-            val permissions: DragAndDropPermissions = DragAndDropPermissions.obtain(event)
-            if (permissions != null) {
-                permissions.takeTransient()
-            }
-            val payload: ContentInfo =
-                ContentInfo.Builder(event.clipData, ContentInfo.SOURCE_DRAG_AND_DROP)
-                    .setDragAndDropPermissions(permissions)
-                    .build()
-            val remainingPayload: ContentInfo = performReceiveContent(payload)
-            // Return true unless none of the payload was consumed.
-            return remainingPayload != payload
-        }
-        return false
-    }
 
 }
 

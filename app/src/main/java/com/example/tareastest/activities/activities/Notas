@@ -48,3 +48,10 @@ class Coche(val nombre: String, val idDrawable: Int) {
 Core Android
 
 https://developer.android.com/develop?hl=en#core-areas
+
+Posiciones originales del icono
+
+  Pos l= 898
+  Pos r= 1052
+  Pos t= 1730
+  Pos b= 1884

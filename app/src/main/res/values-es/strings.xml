@@ -9,4 +9,5 @@
     <string name="Pending">Pendiente</string>
     <string name="Done">Hecho</string>
     <string name="Ok">Listo</string>
+    <string name="MSG_Float">Añadir Tarea</string>
 </resources>
