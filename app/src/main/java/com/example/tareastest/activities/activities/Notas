@@ -2,6 +2,11 @@ Tutorial GridView
 
 https://www.develou.com/tutorial-para-crear-un-gridview-en-android/
 
+Si no aparecen los menús en la aplicación puede deberse a que estan quitados
+en el tema que se está aplicando. Revisar el archivos /res/themes.xml
+
+
+
 /**
  * Clase que representa la existencia de un Coche
  */
