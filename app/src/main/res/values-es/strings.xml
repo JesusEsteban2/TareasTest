@@ -10,4 +10,7 @@
     <string name="Done">Hecho</string>
     <string name="Ok">Listo</string>
     <string name="MSG_Float">Añadir Tarea</string>
+    <string name="new_task">Nueva Tarea</string>
+    <string name="Exit">Salir de la APP</string>
+    <string name="about_app">Acerca de</string>
 </resources>

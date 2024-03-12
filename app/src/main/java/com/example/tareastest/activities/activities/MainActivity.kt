@@ -1,22 +1,20 @@
 package com.example.tareastest.activities.activities
 
+import android.app.Dialog
 import android.content.Context
+import android.content.DialogInterface.OnClickListener
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.ContentInfo
-import android.view.DragAndDropPermissions
-import android.view.DragEvent
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat.performReceiveContent
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.tareastest.R
 import com.example.tareastest.activities.adapters.TareasAdapter
 import com.example.tareastest.activities.data.DaoTask
+import com.example.tareastest.activities.data.Emergente
 import com.example.tareastest.activities.data.Tarea
 import com.example.tareastest.databinding.ActivityMainBinding
 import kotlin.system.exitProcess
@@ -58,7 +56,7 @@ class MainActivity : AppCompatActivity() {
 
         // Boton flotante cambiar de sitio con Longclick
         fab.setOnLongClickListener { view ->
-
+            // Mover botón fab a la derecha o izquierda de la Pantalla.
             var l: Int = fab.left
             var r: Int = fab.right
             var t: Int = fab.top
@@ -116,13 +114,20 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
 
-            R.id.editar -> {
+            R.id.nuevo -> {
+                newTask()
+                return true
+            }
+
+            R.id.salir -> {
                     exitProcess(0)
                     return true
             }
-            R.id.nuevo -> {
-                    newTask()
-                    return true
+
+            R.id.acercade -> {
+                val dialogo= Emergente("rollo de  texto","rollo de título",binding.root.context)
+                dialogo.build()
+                return true
             }
         }
 

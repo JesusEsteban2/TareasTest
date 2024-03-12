@@ -10,6 +10,10 @@
     <string name="Done">Done</string>
     <string name="Ok">Ok</string>
     <string name="MSG_Float">Add Task</string>
+    <string name="new_task" >New Task</string>
+    <string name="Exit">Exit</string>
+    <string name="about_app">About App</string>
+    <string name="exit">Salir</string>
 
 
 </resources>
