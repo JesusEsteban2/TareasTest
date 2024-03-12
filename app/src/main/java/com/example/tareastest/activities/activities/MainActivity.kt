@@ -125,7 +125,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             R.id.acercade -> {
-                val dialogo= Emergente("rollo de  texto","rollo de título",binding.root.context)
+                val dialogo= Emergente("Aplicación para tareas.","Prueba Aplicacion Tareas",binding.root.context)
                 dialogo.build()
                 return true
             }
